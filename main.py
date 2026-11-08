@@ -4,7 +4,8 @@ import pygame
 from constants import *
 from logger import log_state
 from player import Player
-
+from asteroid import Asteroid
+from asteroidfield import AsteroidField
 
 def main():
     pygame.init()
@@ -23,8 +24,14 @@ def main():
 
 
     Player.containers = (updatable, drawable)
-
     ship = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
+
+    Asteroid.containers = (updatable, drawable)
+
+
+    AsteroidField.containers = (updatable)
+
+    field = AsteroidField()
 
     while True:
         log_state()
