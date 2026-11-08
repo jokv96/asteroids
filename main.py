@@ -6,6 +6,10 @@ from logger import log_state
 from player import Player
 from asteroid import Asteroid
 from asteroidfield import AsteroidField
+from logger import log_event
+from circleshape import CircleShape
+import sys
+
 
 def main():
     pygame.init()
@@ -20,13 +24,14 @@ def main():
 
     updatable = pygame.sprite.Group()
     drawable = pygame.sprite.Group()
+    asteroids = pygame.sprite.Group()
 
 
 
     Player.containers = (updatable, drawable)
     ship = Player(SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2)
 
-    Asteroid.containers = (updatable, drawable)
+    Asteroid.containers = (asteroids, updatable, drawable)
 
 
     AsteroidField.containers = (updatable)
@@ -37,6 +42,11 @@ def main():
         log_state()
         screen.fill("black")
         updatable.update(dt)
+        for asteroid in asteroids:
+            if ship.collides_with(asteroid):
+                log_event("player_hit")
+                print("Game over!")
+                sys.exit()
         for obj in drawable:
             obj.draw(screen)
         pygame.display.flip()
