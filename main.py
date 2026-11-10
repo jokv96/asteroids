@@ -2,7 +2,7 @@ import sys
 
 import pygame
 
-from asteroid import Asteroid
+from asteroid import *
 from asteroidfield import AsteroidField
 from constants import *
 from logger import log_event, log_state
@@ -49,7 +49,7 @@ def main():
             for shot in shots:
                 if asteroid.collides_with(shot):
                     log_event("asteroid_shot")
-                    asteroid.kill()
+                    asteroid.split()
                     shot.kill()
 
         for obj in drawable:
